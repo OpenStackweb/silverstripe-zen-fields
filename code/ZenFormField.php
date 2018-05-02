@@ -1,5 +1,7 @@
 <?php
 
+use SilverStripe\Core\Extension;
+use SilverStripe\Forms\FieldList;
 
 
 /**

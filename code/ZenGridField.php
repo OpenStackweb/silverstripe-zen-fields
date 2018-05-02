@@ -1,5 +1,10 @@
 <?php
 
+use SilverStripe\Core\Config\Config;
+use SilverStripe\Core\Injector\Injector;
+use SilverStripe\Core\Extension;
+use SilverStripe\Forms\GridField\GridFieldConfig;
+
 /**
  * Defines a GridField for use with ZenFields
  * 

@@ -10,9 +10,6 @@ FormField:
 GridField:
   extensions:
     - ZenGridField
-UploadField:
-  extensions:
-    - ZenUploadField
 ZenFields:
   gridfield_sortable_component_classes:
     - GridFieldOrderableRows

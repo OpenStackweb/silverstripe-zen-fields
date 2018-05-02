@@ -1,5 +1,16 @@
 <?php
 
+use SilverStripe\Forms\FieldList;
+use SilverStripe\Forms\FormField;
+use SilverStripe\Core\Injector\Injector;
+use SilverStripe\Forms\GridField\GridField;
+use SilverStripe\Forms\GridField\GridFieldConfig_RecordEditor;
+use SilverStripe\ORM\UnsavedRelationList;
+use SilverStripe\Forms\HeaderField;
+use SilverStripe\Forms\FieldGroup;
+use SilverStripe\Core\Manifest\ClassLoader;
+use SilverStripe\Core\Extension;
+
 /**
  * Provides shortcuts to adding fields to the main tab.
  *
@@ -54,7 +65,7 @@ class ZenFields extends Extension {
 		if($this->owner->hasMethod($getter)) {
 			return $this->owner->$getter();
 		}
-		if(is_subclass_of($formFieldClass, "FormField")) {
+		if(is_subclass_of($formFieldClass, FormField::class)) {
 			if(!isset($args[0])) {
 				user_error("FieldList::{$method} -- Missing argument 1 for field name", E_ERROR);
 			}
@@ -139,9 +150,9 @@ class ZenFields extends Extension {
 	 * @return   FieldList
 	 */
 	public function hasManyGrid($name, $title = null, $list = null) {
-		$grid = Injector::inst()->createWithArgs("GridField", array($name, $title, $list, GridFieldConfig_RecordEditor::create()));
+		$grid = Injector::inst()->createWithArgs(GridField::class, array($name, $title, $list, GridFieldConfig_RecordEditor::create()));
 		if($list && $list instanceof UnsavedRelationList) {
-			$this->add($h = new HeaderField(_t('ZenFields.RELATIONNOTSAVED','You can add records once you have saved for the first time.')));
+			$this->add($h = new HeaderField('header1',_t('ZenFields.RELATIONNOTSAVED','You can add records once you have saved for the first time.')));
 		}
 		else {
 			$this->add($grid);
@@ -228,7 +239,7 @@ class ZenFields extends Extension {
 			'removefield',
 			'addfield'
 		);
-		foreach(SS_ClassLoader::instance()->getManifest()->getDescendantsOf("FormField") as $field) {
+		foreach(ClassLoader::instance()->getManifest()->getDescendantsOf(FormField::class) as $field) {
 			$methods[] = strtolower(preg_replace('/Field$/',"",$field));
 		}
 		return $methods;

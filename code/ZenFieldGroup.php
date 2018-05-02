@@ -1,5 +1,9 @@
 <?php
 
+use SilverStripe\Forms\FieldGroup;
+use SilverStripe\Forms\FieldList;
+use SilverStripe\Forms\FormField;
+
 
 /**
  * Defines a FieldGroup for usage with ZenFields
